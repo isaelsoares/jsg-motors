@@ -1,26 +1,301 @@
 @import "tailwindcss";
 
+/* Palette defined by the client (PRODUCT.md, Brand Commitments). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #04c6b6;
+  --color-primary-dark: #0c9181;
+  --color-primary-light: #37e1d5;
+  --color-background: #010203;
+  --color-surface: #102525;
+  --color-silver: #c0c5c7;
+  --color-silver-light: #dfe2e4;
+  --color-steel: #7c858b;
+  --color-graphite: #515659;
+  --color-white: #ffffff;
+  --color-panel: #17191b;
+  --color-dock-hover: #173535;
+  --hairline: rgb(192 197 199 / 0.12);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
+  --color-ink: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-panel: var(--color-panel);
+  --color-silver: var(--color-silver);
+  --color-silver-light: var(--color-silver-light);
+  --color-steel: var(--color-steel);
+  --color-graphite: var(--color-graphite);
+  --color-hairline: var(--hairline);
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* Top: clears the 64px sticky nav. Bottom: clears the docked WhatsApp plate. */
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 5rem;
+  scrollbar-color: var(--color-graphite) var(--color-background);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+@media (pointer: fine) {
+  html { overscroll-behavior: none; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-silver);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+@media (min-width: 640px) {
+  body { font-size: 1rem; }
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 3px;
+}
+/* Framed media clip an outside ring; draw it inside. */
+iframe:focus {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: -3px;
+}
+
+a {
+  text-underline-offset: 0.25em;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 60;
+  padding: 0.6rem 1rem;
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+@layer components {
+  /* Headings: Archivo slightly widened, semibold, tight. Sign-like without shouting. */
+  .display {
+    font-stretch: 112%;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    color: var(--color-silver-light);
+    text-wrap: balance;
+  }
+
+  /* Small sign lettering: the facade's wide caps, kept for labels and controls. */
+  .sign-type {
+    font-stretch: 125%;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* The sign panel: charcoal ACM with darker diagonal facets, as on the facade. */
+  .sign-panel {
+    background-color: var(--color-panel);
+    background-image: linear-gradient(118deg, transparent 0 34%, rgb(1 2 3 / 0.45) 34% 58%, transparent 58% 100%),
+      linear-gradient(118deg, rgb(81 86 89 / 0.1), rgb(1 2 3 / 0.3));
+  }
+
+  /* The facade's corner slashes: two parallel diagonal bands cutting a corner. */
+  .sign-corner {
+    position: absolute;
+    width: clamp(56px, 6vw, 96px);
+    height: clamp(56px, 6vw, 96px);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .sign-slash {
+    position: absolute;
+    left: -50%;
+    width: 200%;
+    background: var(--color-primary);
+    transform: rotate(-45deg);
+  }
+  .sign-slash--wide { top: 6%; height: 14%; }
+  .sign-slash--thin { top: 36%; height: 5%; }
+
+  /* Skewed action plate, like the bars it belongs to. */
+  .btn-sign {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.6rem;
+    color: var(--color-background);
+    font-size: 0.75rem;
+    font-stretch: 118%;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .btn-sign::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    /* A light sweep lives in the plate's own background, so it never leaves the skew. */
+    background: linear-gradient(100deg, transparent 42%, rgb(255 255 255 / 0.38) 50%, transparent 58%) no-repeat 160% 0 / 260% 100%,
+      var(--color-primary);
+    transform: skewX(-14deg);
+    transition: background-color 200ms ease-out;
+  }
+  .btn-sign svg { transition: transform 260ms var(--ease-out); }
+  .btn-sign:hover::before { background-color: var(--color-primary-light); }
+  .btn-sign:hover svg { transform: rotate(-8deg) scale(1.08); }
+  .btn-sign:active::before { background-color: var(--color-primary-dark); }
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-sign:hover::before { background-position: -60% 0; transition: background-color 200ms ease-out, background-position 800ms var(--ease-out); }
+  }
+
+  /* Dark sign plate for the docked button, so it never reads as a second hero CTA. */
+  .btn-dock { color: var(--color-silver-light); }
+  .btn-dock::before {
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary);
+  }
+  .btn-dock:hover::before { background: var(--color-dock-hover); }
+  .btn-dock:active::before { background: var(--color-background); }
+
+  /* Hero photo: mobile ends on a diagonal; desktop bleeds right with a diagonal left edge
+     at the sign panel's facet angle, traced by a thin teal slash. */
+  .hero-photo { --cut: 30%; }
+  .hero-frame { clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
+  .hero-slash { display: none; }
+  @media (min-width: 1024px) {
+    .hero-frame { clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%); }
+    .hero-slash {
+      display: block;
+      position: absolute;
+      inset: 0;
+      background: var(--color-primary);
+      clip-path: polygon(calc(var(--cut) - 22px) 0, calc(var(--cut) - 16px) 0, -16px 100%, -22px 100%);
+    }
+  }
+
+  /* Underline that draws in from the left on hover. */
+  .link-draw {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 320ms var(--ease-out), color 200ms ease-out;
+  }
+  .link-draw:hover { background-size: 100% 1px; }
+}
+
+.intro-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.intro-line > span { display: block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* ---------- Motion. Material: the sign's 45° diagonal cut. ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Focal sequence on load: sign powers on, the facade photo is cut open, the headline rises. */
+  .power-on .sign-corner .sign-slash { animation: bar-on 700ms var(--ease-out) both; }
+  .power-on .sign-corner .sign-slash--thin { animation-delay: 90ms; }
+  .power-on .sign-corner[data-from="right"] .sign-slash { animation-delay: 160ms; }
+  .power-on .sign-lit { animation: lit 1100ms var(--ease-out) 200ms both; }
+  .power-on .sign-sheen { animation: sheen 1300ms var(--ease-out) 600ms both; }
+
+  .hero-frame img { animation: settle 1600ms var(--ease-out) 350ms both; }
+  .hero-frame { animation: fade-in 900ms var(--ease-out) 300ms both; }
+  @media (min-width: 1024px) {
+    .hero-frame { animation: hero-wipe 1200ms var(--ease-out) 300ms both; }
+    .hero-slash { animation: slash-in 900ms var(--ease-out) 900ms both; }
+  }
+  .intro-line > span { display: block; animation: rise 900ms var(--ease-out) both; animation-delay: calc(550ms + var(--i, 0) * 90ms); }
+  .intro-fade { animation: fade-up 800ms var(--ease-out) both; animation-delay: var(--d, 900ms); }
+
+  /* Scroll reveals (classes set by <Reveal />; content stays visible without JS). */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  /* The observed box stays unclipped; its media child is cut open on the diagonal. */
+  .js [data-reveal="cut"] { opacity: 1; transform: none; }
+  .js [data-reveal="cut"] > * {
+    clip-path: polygon(0 0, 0 0, -40% 100%, 0 100%);
+    transform: scale(1.08);
+    transition: clip-path 1100ms var(--ease-out), transform 1600ms var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .js [data-reveal="line"] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+  .js [data-reveal="cut"].is-in > * { clip-path: polygon(0 0, 140% 0, 100% 100%, 0 100%); transform: none; }
+  /* Keyboard focus never lands on something still animating in. */
+  .js [data-reveal]:focus-within { opacity: 1; transform: none; transition: none; }
+  .js [data-reveal="cut"]:focus-within > * { clip-path: none; transform: none; transition: none; }
+}
+
+
+@keyframes bar-on {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes lit {
+  0% { filter: brightness(0.35) saturate(0.4); }
+  18% { filter: brightness(0.9) saturate(1); }
+  26% { filter: brightness(0.55) saturate(0.7); }
+  100% { filter: brightness(1) saturate(1); }
+}
+@keyframes sheen {
+  from { transform: translateX(-120%) skewX(-20deg); opacity: 1; }
+  to { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* The diagonal edge sweeps in from the right to its resting place (same vertex count). */
+@keyframes hero-wipe {
+  from { clip-path: polygon(132% 0, 100% 0, 100% 100%, 100% 100%); }
+  to { clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%); }
+}
+@keyframes slash-in {
+  from { opacity: 0; transform: translateX(48px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes settle {
+  from { transform: scale(1.1); }
+  to { transform: scale(1); }
+}
+@keyframes rise {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
