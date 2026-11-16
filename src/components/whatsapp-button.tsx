@@ -2,7 +2,7 @@ import { WHATSAPP_URL } from "@/lib/site";
 import { WhatsAppIcon } from "./brand-icons";
 
 export function WhatsAppButton({
-  label = "Chamar o Gustavo no WhatsApp",
+  label = "Chamar nossa equipe no WhatsApp",
   shortLabel = "Chamar no WhatsApp",
   className = "",
 }: {
