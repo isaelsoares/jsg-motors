@@ -50,10 +50,10 @@ export const HOURS_TABLE = [
 // Only details the client stated; the rest stay as names.
 export const SERVICES = [
   { id: "preventiva", name: "Manutenção preventiva", detail: null },
-  { id: "oleo", name: "Troca de óleo", detail: "Valvoline, por um preço justo" },
+  { id: "oleo", name: "Troca de óleo", detail: "Qualidade e preço justo" },
   { id: "filtros", name: "Troca de filtros", detail: null },
   { id: "ruidos", name: "Diagnóstico de ruídos", detail: "Barulhos e ruídos estranhos" },
-  { id: "motor", name: "Motor", detail: "Manutenção no próprio motor" },
+  { id: "motor", name: "Motor", detail: "Manutenção especializada" },
   { id: "injecao", name: "Injeção eletrônica", detail: null },
   { id: "freios", name: "Freios", detail: null },
   { id: "suspensao", name: "Suspensão", detail: null },

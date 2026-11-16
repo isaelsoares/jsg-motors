@@ -246,9 +246,9 @@ export default function Home() {
             </SectionHeading>
             <ol className="grid gap-12 md:grid-cols-3 md:gap-10">
               {[
-                { icon: WhatsAppIcon, title: "Você chama", text: "Manda mensagem para o Gustavo no WhatsApp e combina o serviço." },
+                { icon: WhatsAppIcon, title: "Você chama", text: "Manda mensagem para a nossa equipe no WhatsApp e combina o serviço." },
                 { icon: Car, title: "A gente busca", text: "Buscamos o carro em casa ou no trabalho, onde for melhor para você." },
-                { icon: House, title: "Devolve pronto", text: "Serviço feito, o carro volta para você. Sem custo de busca em Concórdia." },
+                { icon: House, title: "Devolve pronto", text: "Serviço concluído. Nós levamos seu carro até você! Busca e entrega sem custo em Concórdia." },
               ].map((step, i) => {
                 const Icon = step.icon;
                 const d = { "--d": `${i * 140}ms` } as React.CSSProperties;
@@ -334,7 +334,7 @@ export default function Home() {
                 Troca de óleo <span translate="no">Valvoline</span>
               </h2>
               <p className="mt-4 max-w-[46ch] text-silver/90 sm:text-[1.0625rem]">
-                A <span translate="no">JSG</span> é parceira da <span translate="no">Valvoline</span>: óleo de qualidade por um preço justo. A troca é feita no galpão ao lado da loja.
+                A <span translate="no">JSG</span> é parceira <span translate="no">Valvoline</span>, oferencendo óleos de qualidade por um preço justo!
               </p>
               <WhatsAppButton className="mt-8 ml-1.5" label="Agendar troca de óleo" shortLabel="Agendar troca" />
             </div>
@@ -425,7 +425,7 @@ export default function Home() {
           <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 py-20 sm:px-8 sm:py-24 lg:flex-row lg:items-center lg:justify-between" data-reveal>
             <h2 id="chamar" className="display text-[1.75rem] sm:text-[2.5rem]">
               Precisa de mecânico?
-              <span className="block text-silver/70">Chama o Gustavo.</span>
+              <span className="block text-silver/70">Entre em contato com a nossa equipe!</span>
             </h2>
             <WhatsAppButton className="ml-1.5" />
           </div>
