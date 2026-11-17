@@ -1,7 +1,7 @@
 // Single source of truth for business facts used by the page, metadata and JSON-LD.
 
 /** Production URL. TODO: replace with the real domain once it is registered. */
-export const SITE_URL = "https://www.jsgmotors.com.br";
+export const SITE_URL = "https://jsgmotors.com.br";
 
 export const BUSINESS = {
   name: "JSG Motors",
