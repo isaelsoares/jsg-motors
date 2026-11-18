@@ -21,14 +21,33 @@ export const metadata: Metadata = {
   description,
   applicationName: BUSINESS.name,
   keywords: [
-    "oficina mecânica Concórdia",
-    "mecânico Concórdia SC",
+    // Marca
+    "JSG Motors",
+    "JSG Motors Concórdia",
+
+    // Oficina e Auto Center
+    "oficina mecânica em Concórdia",
+    "oficina mecânica Concórdia SC",
+    "mecânica automotiva em Concórdia",
+    "mecânico em Concórdia SC",
+    "auto center em Concórdia",
+    "autocenter Concórdia SC",
+    "centro automotivo em Concórdia",
+    "serviços automotivos Concórdia",
+
+    // Serviços
+    "manutenção automotiva Concórdia",
+    "revisão automotiva Concórdia",
     "troca de óleo Concórdia",
-    "Valvoline Concórdia",
-    "leva e traz oficina",
     "injeção eletrônica Concórdia",
     "freios e suspensão Concórdia",
-    "JSG Motors",
+    "diagnóstico automotivo Concórdia",
+
+    // Diferenciais
+    "Valvoline Concórdia",
+    "troca de óleo Valvoline",
+    "oficina com leva e traz",
+    "leva e traz oficina Concórdia",
   ],
   alternates: { canonical: "/" },
   openGraph: {
