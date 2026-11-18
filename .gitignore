@@ -42,3 +42,7 @@ next-env.d.ts
 
 # documentation and notes: kept local, not sent to the repository
 *.md
+
+# local AI/design tooling: kept local, not sent to the repository
+/.claude/
+/.impeccable/
