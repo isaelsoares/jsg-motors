@@ -190,7 +190,7 @@ export default function Home() {
 
       <main id="conteudo" tabIndex={-1} className="outline-none">
         {/* Hero: the real facade bleeds off the right edge, cut on the sign's diagonal. */}
-        <section aria-labelledby="titulo" className="relative lg:flex lg:min-h-[640px] lg:items-center">
+        <section aria-labelledby="titulo" className="relative overflow-x-clip lg:flex lg:min-h-[640px] lg:items-center">
           <div className="hero-photo relative aspect-[4/3] sm:aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-[56vw] xl:w-[58vw]">
             <span aria-hidden className="hero-slash" />
             <div className="hero-frame absolute inset-0 overflow-hidden">
